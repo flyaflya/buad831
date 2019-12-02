@@ -104,7 +104,7 @@ for (movieName in lotrFolders) {
   
   for (chapName in fileChapNames) {
     fileName = file.path("data", movieName, chapName)
-    newRowsDF = read_csv(fileName)
+    newRowsDF = read_csv(fileName) %>% mutate(movie = movieName)
     lotrAllDF = bind_rows(lotrAllDF, newRowsDF)
   }
 }
@@ -112,12 +112,23 @@ for (movieName in lotrFolders) {
 ## view info
 lotrAllDF
 
-## use code from above to now see who spoke the most
-## in all of the movies
+## CLASS EXERCISE:  modify below code 
+## to now see who spoke the most
+## across all three of the movies
 lotrAllDF %>%
-  mutate(movie = folderName) %>%
   group_by(movie,Character,Race) %>%
   summarize(wordCount = sum(Words)) %>%
   arrange(desc(wordCount))
 
-write.csv(lotrDF,file = "allMovies.csv",row.names = FALSE)
+write.csv(lotrAllDF,file = "allMovies.csv",row.names = FALSE)
+
+### write down how many words Gandalf 
+### spoke across all three movies
+
+## CLASS EXERCISE:  notice there is a file
+## from the first movie that is misplaced
+## Specifically, "30_The Deparutre Of The Fellowship.csv"
+## is in the wrong folder.  Place it in the correct
+## folder and rerun the entire script.
+### Again, write down how many words Gandalf 
+### spoke across all three movies.
