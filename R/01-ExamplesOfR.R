@@ -29,6 +29,7 @@ c(1,2,3) + c(1,2,3,4,5,6,7)  # weird behavior called vector recycling
 mean(x = 1:6) # argument explicitly named
 mean(1:6)   # argument implied by position
 
+## function help:  https://r4ds.had.co.nz/functions.html
 ## write your own function
 ## take two numbers and return the secondNumber's value
 getSecond = function(firstNumber, secondNumber) {
@@ -59,20 +60,14 @@ superbowl[1:2,"Winner"]
 superbowl[ , "Winner"]
 superbowl$Winner[1:2]
 
-###opening a webpage
-shell.exec("http://en.wikipedia.org/wiki/Super_Bowl_indicator")
-
 ###looking at first 31 superbowls
-ggplot(superbowl[1:31,],aes(x = DowJonesSimpleReturn, fill = Winner)) + 
-  geom_dotplot(binwidth=0.05) + 
-  facet_grid(rows = vars(Winner)) + 
-  ylim(0, 6)
-
-###looking at all points
-ggplot(superbowl,aes(x = DowJonesSimpleReturn, fill = Winner)) + 
-  geom_dotplot(binwidth=0.05) + 
-  facet_grid(rows = vars(Winner)) + 
-  ylim(0, 6)
+superbowl[1:31,] %>%
+  ggplot() +
+  geom_point(aes(x=Year,
+                 y=DowJonesSimpleReturn,
+                 color = Winner,
+                 group = Winner),
+             size = 5)
 
 ### character strings versus objects
 
@@ -97,6 +92,7 @@ starWarsCharacterVector
 #                               }
 
 count=1
+# for loop help at https://r4ds.had.co.nz/iteration.html#for-loops
 for (starName in starWarsCharacterVector) {
   print("Character #")
   print(count)
